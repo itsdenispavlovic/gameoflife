@@ -1,36 +1,46 @@
 import React from "react";
 import Box from "./Box";
 
-class Grid extends React.Component {
-    render() {
-        const width = (this.props.cols * 14);
-        const rowsArr = [];
+/**
+ * Grid Component
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const Grid = props => {
 
-        let boxClass = "";
-        for(let i = 0; i < this.props.rows; i++) {
-            for(let j = 0; j < this.props.cols; j++) {
-                let boxId = i + "_" + j;
+    // 14 - Number of columns by size of the box in pixels.
+    const width = props.cols * 14;
 
-                boxClass = this.props.gridFull[i][j] ? "box on" : "box off";
-                rowsArr.push(
-                    <Box
-                        boxClass={boxClass}
-                        key={boxId}
-                        boxId={boxId}
-                        row={i}
-                        col={j}
-                        selectBox={this.props.selectBox}
-                    />
-                );
-            }
-        }
+    let boxClass = "";
 
-        return (
-            <div className="grid" style={{width: width}}>
-                {rowsArr}
-            </div>
-        );
-    }
-}
+    const rowsArr = props.gridFull.map((rowArr, rowIdx) =>
+        rowArr.map((item, colIdx) => {
+
+            // ID - which goes to each box element 0_0,0_1 and so on
+            const boxId = `${rowIdx}_${colIdx}`;
+
+            // ternary operator, daca pe pozitie [i][j] este true/1 atunci clasa pt box-ul respectiv va fi box on in caz contrar box off
+            boxClass = props.gridFull[rowIdx][colIdx] ? "box on" : "box off";
+
+            return (
+                <Box
+                    boxClass={boxClass}
+                    key={boxId}
+                    boxId={boxId}
+                    row={rowIdx}
+                    col={colIdx}
+                    selectBox={props.selectBox}
+                />
+            );
+        })
+    );
+
+    return (
+        <div className="grid" style={{ width }}>
+            {rowsArr}
+        </div>
+    );
+};
 
 export default Grid;

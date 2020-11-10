@@ -1,12 +1,29 @@
 import React from "react";
-import {ButtonToolbar, Dropdown, DropdownButton} from "react-bootstrap";
+import {
+    ButtonToolbar,
+    Dropdown,
+    DropdownButton
+} from "react-bootstrap";
 
+/**
+ * Buttons Component
+ * Navigation
+ */
 class Buttons extends React.Component {
 
+    /**
+     * Handle Select
+     *
+     * @param event
+     */
     handleSelect = (event) => {
         this.props.gridSize(event);
     }
 
+    /**
+     *
+     * @returns {JSX.Element}
+     */
     render() {
         return (
             <div className="center">
