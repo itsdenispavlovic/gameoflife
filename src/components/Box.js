@@ -13,7 +13,6 @@ class Box extends React.Component {
     }
 
     /**
-     *
      * @returns {JSX.Element}
      */
     render() {

@@ -3,6 +3,7 @@ import Box from "./Box";
 
 /**
  * Grid Component
+ *
  * @param props
  * @returns {JSX.Element}
  * @constructor
@@ -27,6 +28,7 @@ const Grid = props => {
                 <Box
                     boxClass={boxClass}
                     key={boxId}
+                    // id={`${rowIdx}_${colIdx}`}
                     boxId={boxId}
                     row={rowIdx}
                     col={colIdx}

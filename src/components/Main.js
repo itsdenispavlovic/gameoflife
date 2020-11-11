@@ -132,7 +132,6 @@ class Main extends React.Component {
         // Any live cell with more than three live neighbours dies, as if by overpopulation.
         // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-
         // we go through every element in grid
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
@@ -140,18 +139,10 @@ class Main extends React.Component {
                 // here is where we are figuring out the rules
 
                 // Count - how many neighbours it has
-                // If there is a neighbor, we will increase our count with 1
-                let count = 0;
 
-                // each cell has 8 potential neighbour
-                if (i > 0) if (g[i - 1][j]) count++;
-                if (i > 0 && j > 0) if (g[i - 1][j - 1]) count++;
-                if (i > 0 && j < this.cols - 1) if (g[i - 1][j + 1]) count++;
-                if (j < this.cols - 1) if (g[i][j + 1]) count++;
-                if (j > 0) if (g[i][j - 1]) count++;
-                if (i < this.rows - 1) if (g[i + 1][j]) count++;
-                if (i < this.rows - 1 && j > 0) if (g[i + 1][j - 1]) count++;
-                if (i < this.rows - 1 && j < this.cols - 1) if (g[i + 1][j + 1]) count++;
+                var count = countNearbyLives(i,j, this.rows, g);
+
+                // console.log(i + "_" + j + " => " + count);
 
                 // then we will decide, if it will die or live
                 // if theres less then 2 or more then 3 it dies
@@ -202,11 +193,38 @@ class Main extends React.Component {
 
 /**
  * Array Clone
+ *
  * @param arr
  * @returns {any}
  */
 function arrayClone(arr) {
     return JSON.parse(JSON.stringify(arr));
+}
+
+/**
+ * Count Nearby Lives
+ *
+ * @param i
+ * @param j
+ * @param rows
+ * @param grid
+ * @returns {number}
+ */
+function countNearbyLives(i, j, rows, grid) {
+
+    var lives = 0;
+
+    for (var x = -1; x <= 1; x++) {
+        for (var y = -1; y <= 1; y++) {
+            if (i + x >= 0 && i + x < rows && j + y >= 0 && j + y < rows) {
+                if (!(x === 0 && y === 0)) {
+                    lives += grid[i + x][j + y];
+                }
+            }
+        }
+    }
+
+    return lives;
 }
 
 export default Main;

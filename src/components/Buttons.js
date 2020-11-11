@@ -21,7 +21,6 @@ class Buttons extends React.Component {
     }
 
     /**
-     *
      * @returns {JSX.Element}
      */
     render() {
